@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ex.2: Programmer humor</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <img id="img" src="">
+    <script>
+        //Write an function that makes an API call to https://xkcd.com/info.0.json
+        //Inside the same file write two programs: one with XMLHttpRequest, and the other with axios
+        //Each function should make an API call to the given endpoint: https://xkcd.com/info.0.json
+        //Log the received data to the console
+        //Render the img property into an < img > tag in the DOM
+        //Incorporate error handling
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                let response = JSON.parse(xhttp.responseText);
+                console.log(response);
+                console.log(response.img);
+                document.getElementById("img").src = response.img;
+
+            }
+
+        };
+        xhttp.open("GET", "https://cors-anywhere.herokuapp.com/https://xkcd.com/info.0.json", true);
+        xhttp.send();
+
+
+
+        let getData = () => {
+            axios.get("https://cors-anywhere.herokuapp.com/https://xkcd.com/info.0.json").then(response => {
+                console.log(response.data.img);
+                document.getElementById("img").src = response.data.img;
+            });
+        };
+        getData();
+
+
+
+
+    </script>
+</body>
+
+</html>
